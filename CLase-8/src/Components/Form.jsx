@@ -12,10 +12,11 @@ const Form = () => {
   const [show, setShow] = useState(false)
   const [error, setError] = useState(false)
 
+  const regex = /^(?!\s)[^\s]{3,}$/
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if((usuario.nombre.length > 3) && usuario.apellido.length >= 6){
+    if(regex.test(usuario.nombre) && usuario.apellido.length >= 6){
         setShow(true)
         setError(false)
     } else {
@@ -27,11 +28,11 @@ const Form = () => {
     <div>
         <form>
             <label>Nombre</label>
-                <input onChange={(e) => setUsuario({...usuario, nombre: e.target.value})}/>
+                <input type='text' onChange={(e) => setUsuario({...usuario, nombre: e.target.value})}/>
             <label>Apellido</label>
-                <input onChange={(e) => setUsuario({...usuario, apellido: e.target.value})}/>
+                <input type='text' onChange={(e) => setUsuario({...usuario, apellido: e.target.value})}/>
             <label>Edad</label>
-                <input onChange={(e) => setUsuario({...usuario, edad: e.target.value})}/>
+                <input type='number' onChange={(e) => setUsuario({...usuario, edad: e.target.value})}/>
             <button onClick={handleSubmit}>Enviar</button>
         </form>
         {show ? <Card usuario={usuario}/> : null}
